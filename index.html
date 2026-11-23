@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LowLightGarage</title>
+<meta name="description" content="Car photography by Ahmed Al-Zaydan, Albany, NY. Detail work, car portraits and prints.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
+<style>
+/* VOICE a working photographer's site: quiet, the photos carry it
+   IDEA a contact sheet / photo book: tall plates side by side, small captions, black margins
+   PICTURE three of his portrait shots as a full-width filmstrip, then the full set in a 4:5 grid with a viewer
+   COLOUR near-black ground, warm white ink, one muted grey; colour comes only from the photos
+   TYPE Archivo wide 800 for the name, Archivo 400 for text
+   LAYOUT nav, filmstrip, name line, grid, about + services in two columns, prints line, contact footer */
+:root{color-scheme:dark;--bg:#0a0a0a;--ink:#f1eee9;--mute:#948f87;--line:#232321}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:60px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Archivo,system-ui,sans-serif;overflow-x:clip}
+a{color:inherit}
+p{margin:0}
+img{display:block;max-width:100%}
+h1,h2{margin:0;font-weight:800;font-stretch:122%;letter-spacing:-.02em;line-height:1.02}
+h2{font-size:clamp(26px,3.4vw,40px)}
+.pad{padding-inline:max(3vw,16px)}
+.wrap{max-width:1400px;margin-inline:auto}
+
+nav{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 24px;padding-block:12px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px)}
+.logo{font-weight:800;font-stretch:125%;font-size:18px;text-decoration:none}
+.menu{display:flex;flex-wrap:wrap;gap:0 20px}
+.menu a{text-decoration:none;color:var(--mute);padding:10px 0;font-size:15px}
+.menu a:hover{color:var(--ink)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.strip button{padding:0;border:0;background:#141413;cursor:zoom-in;aspect-ratio:4/5;max-height:82svh;overflow:hidden}
+.strip img{width:100%;height:100%;object-fit:cover}
+@media(max-width:700px){.strip{grid-template-columns:minmax(0,1fr)}.strip button:nth-child(n+2){display:none}}
+
+.intro{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px 40px;padding-block:clamp(28px,4vw,52px) clamp(48px,7vw,96px)}
+.intro h1{font-size:clamp(44px,8.5vw,120px)}
+.intro p{color:var(--mute);max-width:34ch;font-size:17px}
+
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.grid figure{margin:0}
+.grid button{display:block;width:100%;padding:0;border:0;background:#141413;cursor:zoom-in;aspect-ratio:4/5;overflow:hidden}
+.grid img{width:100%;height:100%;object-fit:cover;transition:opacity .3s}
+.grid button:hover img{opacity:.85}
+.grid figcaption{display:flex;justify-content:space-between;gap:10px;font-size:14px;color:var(--mute);padding:8px 2px 14px}
+.grid figcaption a{color:var(--ink);white-space:nowrap;text-underline-offset:3px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.grid{grid-template-columns:minmax(0,1fr)}}
+
+.info{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);padding-block:clamp(64px,9vw,128px);border-bottom:1px solid var(--line)}
+.info p{margin-top:16px;max-width:50ch}
+.info p.big{font-size:clamp(19px,1.8vw,22px);line-height:1.45}
+.info p.m{color:var(--mute)}
+.svc{list-style:none;margin:16px 0 0;padding:0}
+.svc li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.svc li span{color:var(--mute);text-align:right}
+@media(max-width:760px){.info{grid-template-columns:minmax(0,1fr)}}
+
+.prints{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px 40px;padding-block:clamp(40px,5vw,72px);border-bottom:1px solid var(--line)}
+.prints p{color:var(--mute);margin-top:8px;max-width:52ch}
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border:1px solid var(--ink);text-decoration:none;font-weight:600;white-space:nowrap}
+.btn:hover{background:var(--ink);color:var(--bg)}
+
+footer{padding-block:clamp(56px,7vw,104px) 28px}
+footer h2{font-size:clamp(34px,6vw,80px)}
+footer h2 a{text-decoration:none}
+footer h2 a:hover{text-decoration:underline;text-underline-offset:8px}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:40px}
+.cols dt{color:var(--mute);font-size:14px}
+.cols dd{margin:2px 0 0;overflow-wrap:anywhere}
+.small{color:var(--mute);font-size:13px;margin-top:48px;padding-top:18px;border-top:1px solid var(--line)}
+@media(max-width:700px){.cols{grid-template-columns:minmax(0,1fr)}}
+
+.lb{position:fixed;inset:0;z-index:20;background:rgba(5,5,5,.96);display:none;grid-template-rows:minmax(0,1fr) auto;padding:16px}
+.lb.on{display:grid}
+.lb img{max-width:100%;max-height:100%;margin:auto;object-fit:contain}
+.lb .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:12px;color:var(--mute);font-size:14px}
+.lb button{background:none;border:1px solid #3a3936;color:var(--ink);min-width:44px;min-height:44px;font:16px Archivo,sans-serif;cursor:pointer}
+.lb .ctr{display:flex;gap:6px}
+</style>
+</head>
+<body>
+
+<nav class="pad" aria-label="Main">
+  <a class="logo" href="#top">LowLightGarage</a>
+  <div class="menu">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#prints">Prints</a>
+    <a href="#contact">Contact</a>
+    <a href="https://www.instagram.com/shots_by_a7med/" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</nav>
+
+<header id="top" class="pad">
+  <div class="wrap">
+    <div class="strip" id="strip"></div>
+    <div class="intro">
+      <h1>LowLightGarage</h1>
+      <p>Car photography by Ahmed Al-Zaydan. Details, portraits and the cars people care about, around Albany, NY.</p>
+    </div>
+  </div>
+</header>
+
+<main class="pad">
+  <div class="wrap">
+    <section id="work" aria-label="Work">
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <section class="info" id="about">
+      <div>
+        <h2>About</h2>
+        <p class="big">I photograph cars the way I see them at a show: up close, in strong light and deep shadow, focused on the lines and details that make each one worth a second look.</p>
+        <p class="m">Most of my work comes from car meets and shows around New York and New England. I'm based in Albany and happy to travel across the Capital Region.</p>
+      </div>
+      <div>
+        <h2>Shoot your car</h2>
+        <ul class="svc">
+          <li>Car portrait session <span>Owners</span></li>
+          <li>Detail and close-up set <span>Owners, builders</span></li>
+          <li>Meet and show coverage <span>Clubs, events</span></li>
+          <li>Clean listing photos <span>Dealers, private sales</span></li>
+        </ul>
+        <p class="m">Email me with the car and what you have in mind for rates and dates.</p>
+      </div>
+    </section>
+
+    <section class="prints" id="prints">
+      <div>
+        <h2>Prints</h2>
+        <p>Selected photos are printed on demand and shipped to you.</p>
+      </div>
+      <a class="btn" href="https://www.etsy.com/shop/LowLightGarage" target="_blank" rel="noopener">Shop on Etsy</a>
+    </section>
+  </div>
+</main>
+
+<footer class="pad" id="contact">
+  <div class="wrap">
+    <h2><a href="mailto:ahmed.alzaydan.bme@gmail.com">Let's shoot your car.</a></h2>
+    <dl class="cols">
+      <div><dt>Email</dt><dd><a href="mailto:ahmed.alzaydan.bme@gmail.com">ahmed.alzaydan.bme@gmail.com</a></dd></div>
+      <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/shots_by_a7med/" target="_blank" rel="noopener">@shots_by_a7med</a></dd></div>
+      <div><dt>Prints</dt><dd><a href="https://www.etsy.com/shop/LowLightGarage" target="_blank" rel="noopener">etsy.com/shop/LowLightGarage</a></dd></div>
+    </dl>
+    <p class="small">© 2026 LowLightGarage · Ahmed Al-Zaydan · Albany, NY</p>
+  </div>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <img id="lb-img" alt="">
+  <div class="bar">
+    <span id="lb-cap"></span>
+    <div class="ctr">
+      <button type="button" id="lb-prev" aria-label="Previous photo">←</button>
+      <button type="button" id="lb-next" aria-label="Next photo">→</button>
+      <button type="button" id="lb-close" aria-label="Close">✕</button>
+    </div>
+  </div>
+</div>
+
+<script>
+{
+  /* ---- Edit here ----
+     file: image in the photos folder. title: the caption.
+     etsy: that photo's Etsy listing link (shows "Buy print"), or leave empty. */
+  const photos = [
+    {file:'01.jpg', title:'Lamborghini, bronze wheel', etsy:''},
+    {file:'10.jpg', title:'Lamborghini Aventador', etsy:''},
+    {file:'08.jpg', title:'Porsche 911', etsy:''},
+    {file:'02.jpg', title:'Lamborghini, rear detail', etsy:''},
+    {file:'03.jpg', title:'Ferrari in green', etsy:''},
+    {file:'04.jpg', title:'Porsche 911 interior', etsy:''},
+    {file:'05.jpg', title:'Vintage racer #81', etsy:''},
+    {file:'07.jpg', title:'Mazda Miata', etsy:''},
+    {file:'11.jpg', title:'Mercedes-AMG GT', etsy:''},
+    {file:'06.jpg', title:'Vintage racer, rear haunch', etsy:''},
+    {file:'09.jpg', title:'Ferrari SF90', etsy:''},
+    {file:'12.jpg', title:'Ferrari California T', etsy:''}
+  ];
+  const stripPick = [0, 1, 2];
+  /* -------------------- */
+
+  const src = p => 'photos/' + p.file;
+  document.getElementById('strip').innerHTML = stripPick.map(i =>
+    `<button type="button" data-i="${i}" aria-label="View ${photos[i].title}"><img src="${src(photos[i])}" alt="${photos[i].title}"></button>`).join('');
+  document.getElementById('grid').innerHTML = photos.map((p, i) => `
+    <figure>
+      <button type="button" data-i="${i}" aria-label="View ${p.title}"><img src="${src(p)}" alt="${p.title}" loading="lazy"></button>
+      <figcaption><span>${p.title}</span>${p.etsy ? `<a href="${p.etsy}" target="_blank" rel="noopener">Buy print</a>` : ''}</figcaption>
+    </figure>`).join('');
+
+  const lb = document.getElementById('lb');
+  const lbImg = document.getElementById('lb-img');
+  const lbCap = document.getElementById('lb-cap');
+  let cur = 0, last = null;
+  const show = i => {
+    cur = (i + photos.length) % photos.length;
+    lbImg.src = src(photos[cur]);
+    lbImg.alt = photos[cur].title;
+    lbCap.textContent = `${photos[cur].title}  ·  ${cur + 1} / ${photos.length}`;
+  };
+  const open = (i, from) => { last = from; show(i); lb.classList.add('on'); document.getElementById('lb-close').focus(); };
+  const close = () => { lb.classList.remove('on'); last?.focus(); };
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-i]');
+    if (b) open(+b.dataset.i, b);
+  });
+  document.getElementById('lb-prev').addEventListener('click', () => show(cur - 1));
+  document.getElementById('lb-next').addEventListener('click', () => show(cur + 1));
+  document.getElementById('lb-close').addEventListener('click', close);
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('on')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(cur - 1);
+    if (e.key === 'ArrowRight') show(cur + 1);
+  });
+}
+</script>
+</body>
+</html>
