@@ -34,10 +34,7 @@ nav{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;justify-content:
 .menu a:hover{color:var(--ink)}
 a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 
-.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-.strip button{padding:0;border:0;background:#141413;cursor:zoom-in;aspect-ratio:4/5;max-height:82svh;overflow:hidden}
-.strip img{width:100%;height:100%;object-fit:cover}
-@media(max-width:700px){.strip{grid-template-columns:minmax(0,1fr)}.strip button:nth-child(n+2){display:none}}
+.hero{display:block;width:100%;height:min(82svh,62vw);min-height:320px;object-fit:cover;background:#141413}
 
 .intro{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px 40px;padding-block:clamp(28px,4vw,52px) clamp(48px,7vw,96px)}
 .intro h1{font-size:clamp(44px,8.5vw,120px)}
@@ -100,7 +97,7 @@ footer h2 a:hover{text-decoration:underline;text-underline-offset:8px}
 
 <header id="top" class="pad">
   <div class="wrap">
-    <div class="strip" id="strip"></div>
+    <img class="hero" src="hero.jpg" alt="Porsche 911 interior with tan leather and yellow gauges">
     <div class="intro">
       <h1>LowLightGarage</h1>
       <p>Car photography by Ahmed Al-Zaydan. Details, portraits and the cars people care about, around Albany, NY.</p>
@@ -177,7 +174,6 @@ footer h2 a:hover{text-decoration:underline;text-underline-offset:8px}
     {file:'08.jpg', title:'Porsche 911', etsy:''},
     {file:'02.jpg', title:'Lamborghini, rear detail', etsy:''},
     {file:'03.jpg', title:'Ferrari in green', etsy:''},
-    {file:'04.jpg', title:'Porsche 911 interior', etsy:''},
     {file:'05.jpg', title:'Vintage racer #81', etsy:''},
     {file:'07.jpg', title:'Mazda Miata', etsy:''},
     {file:'11.jpg', title:'Mercedes-AMG GT', etsy:''},
@@ -185,12 +181,9 @@ footer h2 a:hover{text-decoration:underline;text-underline-offset:8px}
     {file:'09.jpg', title:'Ferrari SF90', etsy:''},
     {file:'12.jpg', title:'Ferrari California T', etsy:''}
   ];
-  const stripPick = [0, 1, 2];
   /* -------------------- */
 
   const src = p => p.file;
-  document.getElementById('strip').innerHTML = stripPick.map(i =>
-    `<button type="button" data-i="${i}" aria-label="View ${photos[i].title}"><img src="${src(photos[i])}" alt="${photos[i].title}"></button>`).join('');
   document.getElementById('grid').innerHTML = photos.map((p, i) => `
     <figure>
       <button type="button" data-i="${i}" aria-label="View ${p.title}"><img src="${src(p)}" alt="${p.title}" loading="lazy"></button>
