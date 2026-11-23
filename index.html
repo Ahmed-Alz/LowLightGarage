@@ -60,7 +60,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
 .set+.set{border-top:1px solid var(--line)}
 .kicker{display:block;color:var(--mute);font-size:14px;font-weight:500;margin-bottom:8px}
 
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 14px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .grid figure{margin:0}
 .grid button{display:block;width:100%;padding:0;border:0;background:var(--panel);cursor:zoom-in;aspect-ratio:4/5;overflow:hidden;border-radius:4px}
 .grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
@@ -130,7 +130,7 @@ footer h2 a:hover{text-decoration:underline;text-underline-offset:8px;text-decor
   <div class="pad">
     <div class="wrap strip">
       <span><b>Automotive photography</b> by Ahmed Al-Zaydan · Albany, NY</span>
-      <a href="#work">See the latest shoot ↓</a>
+      <a href="#work">View the work ↓</a>
     </div>
   </div>
 
@@ -197,34 +197,33 @@ footer h2 a:hover{text-decoration:underline;text-underline-offset:8px;text-decor
 {
   /* ---- Edit here ----
      Each set is one section of the Work area.
-     file: image name in the repo. title: caption. pos: optional crop focus.
-     etsy: that photo's Etsy listing link (adds "Buy print"), or leave empty. */
+     file: image name in the repo. alt: short description (not shown). pos: optional crop focus. */
   const sets = [
-    {kicker:'Featured shoot · Boston', title:'Dodge Challenger R/T',
-     note:'One car, one afternoon: glass towers, the Zakim Bridge and the details up close.',
-     photos:[
-      {file:'c1.jpg', title:'Under the glass', etsy:''},
-      {file:'c2.jpg', title:'Profile', etsy:''},
-      {file:'c4.jpg', title:'Zakim Bridge', pos:'50% 80%', etsy:''},
-      {file:'c3.jpg', title:'Wet stone and steel', pos:'50% 75%', etsy:''},
-      {file:'c5.jpg', title:'Fender script', etsy:''},
-      {file:'c6.jpg', title:'Halo', etsy:''},
-      {file:'c7.jpg', title:'HEMI', etsy:''}
-     ]},
     {kicker:'From shows and meets', title:'Selected work',
      note:'Details, portraits and the cars people care about, across New York and New England.',
      photos:[
-      {file:'01.jpg', title:'Lamborghini, bronze wheel', etsy:''},
-      {file:'10.jpg', title:'Lamborghini Aventador', etsy:''},
-      {file:'08.jpg', title:'Porsche 911', etsy:''},
-      {file:'02.jpg', title:'Lamborghini, rear detail', etsy:''},
-      {file:'03.jpg', title:'Ferrari in green', etsy:''},
-      {file:'05.jpg', title:'Vintage racer #81', etsy:''},
-      {file:'07.jpg', title:'Mazda Miata', etsy:''},
-      {file:'11.jpg', title:'Mercedes-AMG GT', etsy:''},
-      {file:'06.jpg', title:'Vintage racer, rear haunch', etsy:''},
-      {file:'09.jpg', title:'Ferrari SF90', etsy:''},
-      {file:'12.jpg', title:'Ferrari California T', etsy:''}
+      {file:'01.jpg', alt:'Lamborghini Revuelto bronze wheel'},
+      {file:'n1.jpg', alt:'Red Porsche 911 GT3 at night'},
+      {file:'12.jpg', alt:'Ferrari California T taillight'},
+      {file:'05.jpg', alt:'Vintage red racer number 81'},
+      {file:'n2.jpg', alt:'Wet Ferrari badge'},
+      {file:'10.jpg', alt:'White Lamborghini Aventador headlight'},
+      {file:'n3.jpg', alt:'Ferrari wheel and yellow caliper'},
+      {file:'09.jpg', alt:'Ferrari SF90 at night'},
+      {file:'n4.jpg', alt:'Lamborghini exhaust detail'},
+      {file:'11.jpg', alt:'Blue Mercedes-AMG GT headlight'},
+      {file:'07.jpg', alt:'Blue Mazda Miata at dusk'},
+      {file:'n5.jpg', alt:'Porsche crest'}
+     ]},
+    {kicker:'Featured shoot · Boston', title:'Dodge Challenger R/T',
+     note:'One car, one afternoon: glass towers, the Zakim Bridge and the details up close.',
+     photos:[
+      {file:'c1.jpg', alt:'Dodge Challenger under a glass building'},
+      {file:'c2.jpg', alt:'Dodge Challenger profile'},
+      {file:'c4.jpg', alt:'Dodge Challenger at the Zakim Bridge', pos:'50% 80%'},
+      {file:'c5.jpg', alt:'Challenger fender script'},
+      {file:'c6.jpg', alt:'Challenger headlight'},
+      {file:'c7.jpg', alt:'HEMI hood badge'}
      ]}
   ];
   /* -------------------- */
@@ -239,8 +238,7 @@ footer h2 a:hover{text-decoration:underline;text-underline-offset:8px;text-decor
       </div>
       <div class="grid">${s.photos.map(p => { const i = n++; return `
         <figure>
-          <button type="button" data-i="${i}" aria-label="View ${p.title}"><img src="${p.file}" alt="${p.title}" loading="lazy"${p.pos ? ` style="object-position:${p.pos}"` : ''}></button>
-          <figcaption><span>${p.title}</span>${p.etsy ? `<a href="${p.etsy}" target="_blank" rel="noopener">Buy print</a>` : ''}</figcaption>
+          <button type="button" data-i="${i}" aria-label="View photo: ${p.alt}"><img src="${p.file}" alt="${p.alt}" loading="lazy"${p.pos ? ` style="object-position:${p.pos}"` : ''}></button>
         </figure>`; }).join('')}</div>
     </div>`).join('');
 
@@ -262,8 +260,8 @@ footer h2 a:hover{text-decoration:underline;text-underline-offset:8px;text-decor
   const show = i => {
     cur = (i + photos.length) % photos.length;
     lbImg.src = photos[cur].file;
-    lbImg.alt = photos[cur].title;
-    lbCap.textContent = `${photos[cur].title} · ${cur + 1} / ${photos.length}`;
+    lbImg.alt = photos[cur].alt;
+    lbCap.textContent = `${cur + 1} / ${photos.length}`;
   };
   const close = () => { lb.classList.remove('on'); last?.focus(); };
   document.getElementById('sets').addEventListener('click', e => {
