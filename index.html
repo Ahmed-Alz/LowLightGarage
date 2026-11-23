@@ -188,7 +188,7 @@ footer h2 a:hover{text-decoration:underline;text-underline-offset:8px}
   const stripPick = [0, 1, 2];
   /* -------------------- */
 
-  const src = p => 'photos/' + p.file;
+  const src = p => p.file;
   document.getElementById('strip').innerHTML = stripPick.map(i =>
     `<button type="button" data-i="${i}" aria-label="View ${photos[i].title}"><img src="${src(photos[i])}" alt="${photos[i].title}"></button>`).join('');
   document.getElementById('grid').innerHTML = photos.map((p, i) => `
