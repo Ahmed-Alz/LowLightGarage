@@ -27,14 +27,21 @@ h2{font-size:clamp(26px,3.4vw,40px)}
 .pad{padding-inline:max(3vw,16px)}
 .wrap{max-width:1400px;margin-inline:auto}
 
-nav{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 24px;padding-block:12px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px)}
-.logo{font-weight:800;font-stretch:125%;font-size:18px;text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 24px;padding-block:12px;background:linear-gradient(rgba(0,0,0,.55),transparent);transition:background .3s}
+nav.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px)}
+.logo{font-weight:800;font-stretch:125%;font-size:18px;text-decoration:none;opacity:0;transition:opacity .3s}
+nav.solid .logo{opacity:1}
 .menu{display:flex;flex-wrap:wrap;gap:0 20px}
-.menu a{text-decoration:none;color:var(--mute);padding:10px 0;font-size:15px}
+.menu a{text-decoration:none;color:#d9d4cd;padding:10px 0;font-size:15px;text-shadow:0 1px 8px rgba(0,0,0,.5)}
 .menu a:hover{color:var(--ink)}
 a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 
-.hero{display:block;width:100%;height:min(82svh,62vw);min-height:320px;object-fit:cover;background:#141413}
+header#top{position:relative;height:100svh;min-height:520px;overflow:hidden;background:#141413}
+.hero{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mark{position:absolute;top:clamp(64px,11vh,120px);left:0;right:0;padding:0 16px;text-align:center;color:#fff;text-shadow:0 2px 28px rgba(0,0,0,.6)}
+.mark h1{font-size:clamp(40px,8vw,104px)}
+.mark p{margin-top:10px;font-size:clamp(14px,1.4vw,17px);color:#ebe7e1}
+#work{padding-top:clamp(48px,6vw,96px)}
 
 .intro{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px 40px;padding-block:clamp(28px,4vw,52px) clamp(48px,7vw,96px)}
 .intro h1{font-size:clamp(44px,8.5vw,120px)}
@@ -95,13 +102,11 @@ footer h2 a:hover{text-decoration:underline;text-underline-offset:8px}
   </div>
 </nav>
 
-<header id="top" class="pad">
-  <div class="wrap">
-    <img class="hero" src="hero.jpg" alt="Porsche 911 interior with tan leather and yellow gauges">
-    <div class="intro">
-      <h1>LowLightGarage</h1>
-      <p>Car photography by Ahmed Al-Zaydan. Details, portraits and the cars people care about, around Albany, NY.</p>
-    </div>
+<header id="top">
+  <img class="hero" src="hero.jpg" alt="Porsche 911 interior with tan leather and yellow gauges">
+  <div class="mark">
+    <h1>LowLightGarage</h1>
+    <p>Automotive photography by Ahmed Al-Zaydan · Albany, NY</p>
   </div>
 </header>
 
@@ -210,6 +215,10 @@ footer h2 a:hover{text-decoration:underline;text-underline-offset:8px}
   document.getElementById('lb-next').addEventListener('click', () => show(cur + 1));
   document.getElementById('lb-close').addEventListener('click', close);
   lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  const nav = document.querySelector('nav');
+  const onScroll = () => nav.classList.toggle('solid', scrollY > innerHeight * 0.7);
+  addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
   document.addEventListener('keydown', e => {
     if (!lb.classList.contains('on')) return;
     if (e.key === 'Escape') close();
